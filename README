@@ -1,0 +1,7 @@
+To update to a new release:
+
+ 1. Download pycairo-X.Y.Z.tar.bz2 from http://cairographics.org/releases/
+ 2. tar xvf pycairo-X.Y.Z.tar.bz2
+ 3. Update version in rpm/rpm/python3-cairo.spec
+ 4. Rebuild
+ 5. Remove the old source tree
