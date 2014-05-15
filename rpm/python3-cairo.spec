@@ -34,19 +34,20 @@ Requires:       %{name} = %{version}
 %build
 cd %{source_subtree}
 # Make sure it builds against the right Python version
-export PYTHON=python3
+export PYTHON=%{python_version}
 # We need to create a fake config script that will redirect
 # the call to using the shell, as waf for some stupid reason
 # always executes python-config with the Python interpreter
 export PYTHON_CONFIG=fake-config
 cp %{SOURCE1} $PYTHON_CONFIG
 $PYTHON ./waf configure --prefix=%{_prefix}
-./waf build
+$PYTHON ./waf build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 cd %{source_subtree}
-./waf install --destdir=$RPM_BUILD_ROOT
+export PYTHON=%{python_version}
+$PYTHON ./waf install --destdir=$RPM_BUILD_ROOT
 
 # Remove files that were byte-compiled by waf
 rm -f $RPM_BUILD_ROOT/%{_libdir}/%{python_version}.*/site-packages/cairo/__init__.py{c,o}
