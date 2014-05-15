@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 cd %{source_subtree}
 ./waf install --destdir=$RPM_BUILD_ROOT
 
+# Remove files that were byte-compiled by waf
+rm -f $RPM_BUILD_ROOT/%{_libdir}/%{python_version}.*/site-packages/cairo/__init__.py{c,o}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
